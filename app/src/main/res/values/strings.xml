@@ -6,4 +6,5 @@
     <string name="hintCorreo">Correo</string>
     <string name="buttComenzar">Comenzar</string>
     <string name="hintNombre">Nombre</string>
+    <string name="idioma">EN</string>
 </resources>
