@@ -5,9 +5,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.example.ejerciciohgaj.databinding.ActivityMainBinding
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    var edad:Int = 0
+    var nombre: String = ""
+    var numerodecuenta: String= ""
+    var correo: String=""
+    var cumpleaños: String= ""
+
+
 
     private lateinit var binding: ActivityMainBinding
 
@@ -39,10 +47,30 @@ class MainActivity : AppCompatActivity() {
     }
     fun onDateSelected(day: Int, month:Int, year: Int){
         binding.tvFecha1.setText("$day/$month/$year")
+        binding.tvFecha1.setText(getString(R.string.fecha_de_nacimiento, day, month, year))
+
+        lateinit var cumpleaños : Date
+        try {
+            cumpleaños = SimpleDateFormat("dd/MM/yyyy").parse(cumpleaños)
+        }
+        catch (e: Exception){
+            println(e)
+        }
+        var ahora= Date(System.currentTimeMillis())
+        var edadactual=ahora.getTime() -cumpleaños.getTime()
+        var sec = edadactual/1000
+        var minutos = sec/60
+        var horas = minutos/ 60
+        var dias= horas/24
+
+        edad =  (dias/365).toInt()
+
+        println("Tu edad es $edad")
+
 
     }
 
-    fun click1(view: View) {}
+
     fun setLocale(codigoIdioma:String){
         val config = resources.configuration
         val locale= Locale(codigoIdioma)
@@ -53,12 +81,49 @@ class MainActivity : AppCompatActivity() {
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
             createConfigurationContext(config)
 
+        resources.updateConfiguration(config, resources.displayMetrics)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 
-    fun click2(view: View) {
-        val codigoIdioma = binding.buttonIdioma.setOnClickListener { setLocale("en") }
+    fun click_idioma(view: View) {
+
+        when(view.id) {
+            R.id.buttonIdioma -> {
+                setLocale("en")
+            }
+
+            R.id.buttonEsp -> {
+                setLocale("es")
+            }
+        }
+
+    }
+    fun click(view: View){
+        val intent =android.content.Intent(this,MainActivity2::class.java)
+        val parametros = Bundle()
+        nombre= binding.tvNombre.text.toString()
+        numerodecuenta = binding.tvNumeroDeC.text.toString()
+        correo = binding.tvEmail.text.toString()
+        cumpleaños = binding.tvNumeroDeC.text.toString()
+
+
+        parametros.putString("hintnombre",nombre)
+        parametros.putInt("edad",edad)
+        parametros.putString("cuenta",numerodecuenta)
+        parametros.putString("Cumpleaños",cumpleaños)
+        parametros.putString("correo",correo)
+
+
+
+
+
+
+        startActivity(intent)
+
+
+
     }
 
 
