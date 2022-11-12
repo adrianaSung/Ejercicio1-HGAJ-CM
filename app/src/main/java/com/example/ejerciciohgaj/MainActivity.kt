@@ -1,5 +1,6 @@
 package com.example.ejerciciohgaj
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     var nombre: String = ""
     var numerodecuenta: String= ""
     var correo: String=""
-    var cumpleaños: String= ""
+    var tuCumple: String= ""
 
 
 
@@ -49,15 +50,16 @@ class MainActivity : AppCompatActivity() {
         binding.tvFecha1.setText("$day/$month/$year")
         binding.tvFecha1.setText(getString(R.string.fecha_de_nacimiento, day, month, year))
 
-        lateinit var cumpleaños : Date
+        var tuCumple = "$day/$month/$year"
+        lateinit var cumple: Date
         try {
-            cumpleaños = SimpleDateFormat("dd/MM/yyyy").parse(cumpleaños)
+            cumple = SimpleDateFormat("dd/MM/yyyy").parse(tuCumple)
         }
         catch (e: Exception){
             println(e)
         }
         var ahora= Date(System.currentTimeMillis())
-        var edadactual=ahora.getTime() -cumpleaños.getTime()
+        var edadactual=ahora.getTime() -cumple.getTime()
         var sec = edadactual/1000
         var minutos = sec/60
         var horas = minutos/ 60
@@ -101,18 +103,19 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun click(view: View){
-        val intent =android.content.Intent(this,MainActivity2::class.java)
+        val intent = Intent(this,MainActivity2::class.java)
         val parametros = Bundle()
-        nombre= binding.tvNombre.text.toString()
+
+        nombre = binding.tvNombre.text.toString()
         numerodecuenta = binding.tvNumeroDeC.text.toString()
         correo = binding.tvEmail.text.toString()
-        cumpleaños = binding.tvNumeroDeC.text.toString()
+        tuCumple = binding.tvNumeroDeC.text.toString()
 
 
-        parametros.putString("hintnombre",nombre)
+        parametros.putString("nombre",nombre)
         parametros.putInt("edad",edad)
-        parametros.putString("cuenta",numerodecuenta)
-        parametros.putString("Cumpleaños",cumpleaños)
+        parametros.putString("numerodecuenta",numerodecuenta)
+        parametros.putString("tuCumple",tuCumple)
         parametros.putString("correo",correo)
 
 
@@ -120,6 +123,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.putExtras(parametros)
         startActivity(intent)
 
 

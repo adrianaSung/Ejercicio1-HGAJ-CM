@@ -9,4 +9,5 @@
     <string name="idioma">es</string>
     <string name="texto">Text</string>
     <string name="Regresar">return</string>
+    <string name="tv_resultado_nombre">Name %s</string>
 </resources>

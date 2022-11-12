@@ -10,5 +10,6 @@
     <string name="fecha_de_nacimiento" translatable="false">%1d / %2d /%3d </string>
     <string name="texto">Texto</string>
     <string name="Regresar">regresar</string>
+    <string name="tv_resultado_nombre">Nombre: %s</string>
 
 </resources>

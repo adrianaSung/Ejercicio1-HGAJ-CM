@@ -18,17 +18,19 @@ class MainActivity2 : AppCompatActivity() {
 
         var bundle = intent.extras
 
-        var nombre = bundle?.getString("hintnombre","")
-        var cumpleaños =bundle?.getString("Cumpleaños","")
+        var nombre = bundle?.getString("nombre","")
+        var tuCumple =bundle?.getString("tuCumple","")
         var edad =bundle?.getInt("edad",0)
-        var cuenta =bundle?.getString("cuenta","")
+        var cuenta =bundle?.getString("numerodecuenta","")
         var correo = bundle?.getString("correo","")
         edad.toString()
 
-        binding2.tvNombre2.text="{nombre}"
-        binding2.tvCumpleanos.text= "Tu cumpleños es: {cumpleaños}"
-        binding2.tvNumerodeCuenta.text= "{cuenta}"
-        binding2.tvCorreo2.text= "Correo {correo} "
+        print(tuCumple)
+
+        binding2.tvNombre2.text = getString(R.string.tv_resultado_nombre, nombre)
+        binding2.tvCumpleanos.text= tuCumple.toString()
+        binding2.tvNumerodeCuenta.text= cuenta.toString()
+        binding2.tvCorreo2.text= correo.toString()
 
 
     }
